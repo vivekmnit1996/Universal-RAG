@@ -1,0 +1,1513 @@
+[
+  {
+    "id": "bench-001",
+    "question": "What vector similarity metric is used by FAISS in Universal RAG?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "FAISS utilizes normalized L2 distance converted to cosine similarity using s = 1.0 - (L2_dist^2 / 2.0).",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#5"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-002",
+    "question": "Why is chunk overlap important when splitting documents?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "Chunk overlap preserves semantic context across split boundaries, preventing split sentences or broken thoughts from losing context during retrieval.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#11"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-003",
+    "question": "What orchestration framework models the stateful workflow in Universal RAG?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "LangGraph models the multi-step state graph with cyclic retrieval, validation, and query rewriting.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#13"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-004",
+    "question": "What is the default chunk size configured in the system?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "The default chunk size is 600 characters with 100 characters overlap.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-005",
+    "question": "Which database engine is used to store document and chunk metadata?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "SQLite with WAL mode and foreign keys enabled is used for persistent metadata storage.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#21"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-006",
+    "question": "Where did Vivek Kumar pursue his B.Tech degree?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "Vivek Kumar pursued his B.Tech in Artificial Intelligence and Data Engineering at Malaviya National Institute of Technology (MNIT), Jaipur.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-007",
+    "question": "What was Vivek's 10th grade CBSE board percentage?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "Vivek Kumar achieved 97.8% in his 10th grade CBSE board examination at CHS, BHU, Varanasi.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#1"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-008",
+    "question": "What is the MarketPulse project built by Vivek?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "MarketPulse is a full-stack multi-vendor e-commerce marketplace built with MERN Stack, LangGraph, and Groq featuring atomic inventory concurrency locking.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#3"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-009",
+    "question": "How does the system prevent SSRF security vulnerabilities during URL ingestion?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "The system validates domain protocols, resolves IPs against private/internal ranges (e.g. 127.0.0.1, 10.0.0.0/8), and blocks local network access.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#34"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-010",
+    "question": "What is the maximum allowed file upload size in MB?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "The maximum allowed file upload size is 25 MB configured via MAX_UPLOAD_SIZE_MB.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-011",
+    "question": "What is the difference between RAG and model fine-tuning?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "Fine-tuning adapts model style and tone on static data, while RAG connects models to dynamic, verifiable external knowledge with exact citations and zero retraining costs.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#2"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-012",
+    "question": "What cosine similarity conversion formula is used for normalized vectors in FAISS?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "Cosine similarity is calculated as 1.0 - (L2_dist^2 / 2.0).",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#5"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-013",
+    "question": "Why is LangGraph preferred over simple linear chains in Universal RAG?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "LangGraph supports cyclical state graphs, allowing conditional routing, retrieval validation, and bounded retry loops when initial retrieval fails.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#13"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-014",
+    "question": "How does deduplication work in FAISS similarity search?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "Deduplication normalizes the leading 20 tokens of chunk snippets to eliminate duplicate or near-identical overlapping chunks.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#6"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-015",
+    "question": "What embedding model is configured by default for OpenAI?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "text-embedding-3-small producing 1536-dimensional embeddings.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-016",
+    "question": "What LLM model is configured by default in settings?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "gpt-4o-mini is configured with a default temperature of 0.1.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-017",
+    "question": "What is the roll number of Vivek Kumar at MNIT Jaipur?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "His roll number is 2023UAI1996.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-018",
+    "question": "What technologies are used in Vivek's Smart Resume Analyzer project?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "Python, scikit-learn, NLTK, and Streamlit.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#2"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-019",
+    "question": "What happens if an ingested PDF contains scanned images without extractable text?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "The PDF parser raises a DocumentParseError indicating no extractable text was found.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#31"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-020",
+    "question": "What fallback embedding dimension is used when running offline?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "A deterministic 1536-dimensional FallbackEmbeddings model is used.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#25"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-021",
+    "question": "Which endpoint clears session conversational memory in the FastAPI app?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "POST /sessions/{session_id}/clear.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#29"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-022",
+    "question": "What table in SQLite stores individual chunk text and metadata?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "The 'chunks' table stores id, document_id, chunk_index, content, page_number, and metadata_json.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#21"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-023",
+    "question": "How does the system ensure source citations cannot be hallucinated?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "Citations are generated directly from the metadata attached to retrieved chunks (document name, page, chunk ID) rather than generated by the LLM.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#15"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-024",
+    "question": "What database technology was studied in Vivek's undergraduate coursework?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "MySQL, DBMS, Data Structures & Algorithms, Operating Systems, Computer Networks, and OOP.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#4"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-025",
+    "question": "What is the CGPA of Vivek Kumar at MNIT Jaipur?",
+    "category": "direct_factual",
+    "is_answerable": true,
+    "ground_truth_answer": "His CGPA is 7.85 in B.Tech Artificial Intelligence and Data Engineering.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-026",
+    "question": "Could you explain the mathematical relation between Euclidean distance and cosine similarity in the vector store?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "Cosine similarity is derived from L2 distance for unit-normalized vectors using s = 1.0 - (L2_dist^2 / 2.0).",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#5"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-027",
+    "question": "Why is overlapping chunks beneficial during document partitioning?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "Overlap prevents sentence boundary fragmentation and preserves continuous context across chunks.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#11"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-028",
+    "question": "What makes LangGraph advantageous compared to standard sequential chains?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "It permits stateful loops, conditional branching, context verification, and automatic query rewriting.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#13"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-029",
+    "question": "Which educational institution is Vivek enrolled in?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "Malaviya National Institute of Technology (MNIT), Jaipur.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-030",
+    "question": "Can you tell me the size of chunks utilized during text indexing?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "Chunk size is set to 600 characters with an overlap of 100 characters.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-031",
+    "question": "Which database backend holds chunk records in this architecture?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "SQLite configured with WAL mode.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#21"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-032",
+    "question": "What safeguards protect the system against internal network scanning via URLs?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "SSRF protection validates URL schemas, hostnames, and rejects private and loopback IP spaces.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#34"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-033",
+    "question": "What is the function of the Smart Resume Analyzer built by Vivek?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "It parses PDF resumes, extracts 80+ skills, and recommends suitable job roles using NLP.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#2"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-034",
+    "question": "How does offline mode handle embeddings without OpenAI keys?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "It computes deterministic 1536-dimensional pseudo-embeddings locally without network requests.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#25"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-035",
+    "question": "How does Universal RAG prevent false citation generation?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "Citations are constructed strictly from physical chunk metadata attached during parsing and retrieval.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#15"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-036",
+    "question": "What stack powers Vivek's MarketPulse marketplace application?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "MERN Stack, LangGraph, Groq, and atomic inventory locking.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#3"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-037",
+    "question": "What are the benefits of RAG over fine-tuning for proprietary enterprise data?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "RAG provides real-time updates, strict source citations, eliminates training compute, and minimizes hallucinations.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#2"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-038",
+    "question": "What happens if an ingested PDF is empty or password-encrypted?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "The parser detects empty or encrypted files and raises DocumentParseError.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#31"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-039",
+    "question": "How are duplicate chunks removed from FAISS query results?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "By fingerprinting the first 20 tokens of chunk content to suppress near-duplicates.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#6"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-040",
+    "question": "Where is conversation history saved during multi-turn chats?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "In an in-memory session manager, keeping chat memory distinct from the persistent knowledge store.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#23"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-041",
+    "question": "What is Vivek Kumar's academic branch of study?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "B.Tech in Artificial Intelligence and Data Engineering.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-042",
+    "question": "Which HTTP route removes conversational context for a given session?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "POST /sessions/{session_id}/clear.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#29"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-043",
+    "question": "What is the maximum file upload threshold supported?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "25 megabytes.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-044",
+    "question": "What academic score did Vivek receive in high school?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "97.8% percentage in 10th grade CBSE board.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#1"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-045",
+    "question": "What is the default OpenAI LLM temperature setting?",
+    "category": "paraphrased",
+    "is_answerable": true,
+    "ground_truth_answer": "0.1 for grounded deterministic answering.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-046",
+    "question": "Explain the complete vector retrieval and deduplication pipeline in Universal RAG.",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "Retrieval queries candidate chunks from FAISS, converts L2 distance to cosine similarity, filters by similarity threshold, and deduplicates using normalized leading tokens.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#5",
+      "doc_interview#6"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-047",
+    "question": "What are the trade-offs of chunk size and how does chunk overlap mitigate them?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "Small chunks risk losing context, while large chunks dilute specificity. Overlap preserves semantic continuity across chunk boundaries.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#10",
+      "doc_interview#11"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-048",
+    "question": "How does LangGraph coordinate query rewriting when initial retrieval yields insufficient relevance?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "The state machine validates top retrieval scores against SIMILARITY_THRESHOLD. If relevance is low, it executes a rewrite_retry node up to MAX_RETRIES.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#13",
+      "doc_interview#14"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-049",
+    "question": "What projects has Vivek Kumar built and what technologies do they use?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "Vivek built RAG for All (LangChain, ChromaDB, FastAPI), Smart Resume Analyzer (scikit-learn, NLTK, Streamlit), and MarketPulse (MERN, LangGraph, Groq).",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#1",
+      "doc_resume#2",
+      "doc_resume#3"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-050",
+    "question": "Describe the SQLite database schema for storing documents and chunks.",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "The database maintains 'documents' (metadata, size, status) and 'chunks' (content, chunk index, document_id foreign key, page number).",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#21",
+      "doc_readme#22"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-051",
+    "question": "How does the ingestion pipeline handle input validation and file storage?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "Sanitizes filenames, verifies extensions, validates file size under 25MB, parses documents, and records metadata in SQLite and FAISS.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#21",
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-052",
+    "question": "What coursework and technical tools does Vivek Kumar list on his profile?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "Tools: NumPy, Pandas, Matplotlib, Git, GitHub, VSCode, MySQL. Coursework: DSA, OS, Computer Networks, DBMS, and OOP.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#4",
+      "doc_resume#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-053",
+    "question": "Compare the roles of FAISS vector store and SQLite metadata store in Universal RAG.",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "FAISS provides fast dense vector nearest-neighbor search, while SQLite provides relational persistence for document lifecycle, chunks, and citations.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#20",
+      "doc_readme#21"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-054",
+    "question": "How does the system distinguish casual queries from knowledge retrieval queries?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "The intent classifier checks greetings and courtesies using is_casual_query; casual turns bypass vector search, while knowledge queries route to retrieval.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#13",
+      "doc_readme#14"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-055",
+    "question": "What security protections are implemented for document ingestion?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "SSRF URL validation, path traversal prevention, file size limits (25MB), and sanitization of user filenames.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#34",
+      "doc_readme#35"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-056",
+    "question": "What happens during query rewrite retry in the LangGraph workflow?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "If similarity scores fall below threshold, rewrite_retry optimizes query keywords using ChatOpenAI or keyword expansion up to MAX_RETRIES.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#13",
+      "doc_interview#14"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-057",
+    "question": "What contact and profile details are provided in Vivek Kumar's resume?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "Email (vivekkumarupadhyay05@gmail.com, 2023uai1996@mnit.ac.in), phone (+919508666296), GitHub (vivekmnit1996), and LeetCode (vivekupadhyay06).",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0",
+      "doc_resume#1"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-058",
+    "question": "How are citations constructed and formatted for display in Universal RAG?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "Extracted directly from chunk metadata (source name, page, excerpt, match score) and displayed as verifiable UI chips.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#16",
+      "doc_readme#17"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-059",
+    "question": "What are the benefits of maintaining session memory separate from vector store data?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "Prevents conversation chatter from polluting factual domain knowledge while allowing natural multi-turn pronoun resolution.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#16",
+      "doc_interview#17"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-060",
+    "question": "What index structures does FAISS support and what is used in this repository?",
+    "category": "multi_chunk",
+    "is_answerable": true,
+    "ground_truth_answer": "FAISS supports IndexFlatL2, IndexIVFFlat, and HNSW; Universal RAG defaults to exact flat L2 with normalized vectors.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#7",
+      "doc_interview#8"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-061",
+    "question": "If Vivek Kumar's Smart Resume Analyzer extracts technical skills, what specific libraries does it use to achieve this?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "Python, scikit-learn, and NLTK.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#2"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-062",
+    "question": "What happens when a query retrieves chunks that fail the similarity threshold twice?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "The workflow exhausts MAX_RETRIES (1) and routes to fallback_refusal, returning a grounded refusal message.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#14"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-063",
+    "question": "Why does FAISS L2 distance calculate exact cosine similarity when vectors are L2-normalized?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "Because for unit vectors with norm 1.0, |u - v|^2 = |u|^2 + |v|^2 - 2(u.v) = 2 - 2*cos(theta), giving cos(theta) = 1.0 - L2^2 / 2.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#5"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-064",
+    "question": "How does pronoun resolution in the query rewriter utilize conversational session history?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "It inspects recent conversation turns and reformulates pronouns (e.g. 'its', 'they') into an independent search query.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#14"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-065",
+    "question": "How does chunk overlap prevent false refusals during LangGraph context validation?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "By ensuring key phrases spanning chunk boundaries are not truncated, keeping similarity scores above SIMILARITY_THRESHOLD.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#11"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-066",
+    "question": "Which project of Vivek incorporates atomic inventory concurrency locking and what LLM framework does it use?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "MarketPulse, utilizing LangGraph and Groq.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#3"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-067",
+    "question": "What enables Universal RAG to answer queries when no external OpenAI API key is supplied?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "The offline fallback embedding engine (FallbackEmbeddings) and extractive grounded answering.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#25"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-068",
+    "question": "How does the API respond when an ingested document is deleted via DELETE /documents/{id}?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "It removes chunk records from SQLite, deletes corresponding vectors from FAISS, removes permanent disk files, and returns 200.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#28"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-069",
+    "question": "What prevents hallucinated citations in answers generated by Universal RAG?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "Citations are compiled deterministically from metadata in retrieved chunks rather than generated by the LLM.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#15"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-070",
+    "question": "Which college degree is Vivek currently pursuing according to his resume?",
+    "category": "multi_hop",
+    "is_answerable": true,
+    "ground_truth_answer": "B.Tech in Artificial Intelligence and Data Engineering at MNIT Jaipur.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-071",
+    "question": "Compare the RAG architecture described in the interview guide with the project implementation documented in the README.",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "Both specify FAISS vector search, SQLite metadata storage, LangGraph cyclic retrieval, and strict citation extraction.",
+    "relevant_source_ids": [
+      "doc_interview",
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#1",
+      "doc_readme#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-072",
+    "question": "How does Vivek's personal project 'RAG for All' relate to the Universal RAG system documented in the README?",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "RAG for All was an earlier exploratory prototype using ChromaDB and LangChain, which evolved into Universal RAG with FAISS, SQLite, and LangGraph.",
+    "relevant_source_ids": [
+      "doc_resume",
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#1",
+      "doc_readme#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-073",
+    "question": "How do the chunking parameters specified in README compare to the chunking principles in the interview guide?",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "The README configures CHUNK_SIZE=600 and CHUNK_OVERLAP=100, which adheres to the 500-800 character window recommended in the interview guide.",
+    "relevant_source_ids": [
+      "doc_readme",
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27",
+      "doc_interview#10"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-074",
+    "question": "How does Vivek Kumar's experience with LangGraph in MarketPulse relate to Universal RAG's workflow orchestration?",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "Vivek utilized LangGraph in MarketPulse for state workflows, and Universal RAG uses LangGraph for stateful RAG with rewrite retries.",
+    "relevant_source_ids": [
+      "doc_resume",
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#3",
+      "doc_readme#13"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-075",
+    "question": "Compare the vector storage design in the interview guide with the database architecture in README.",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "The interview guide explains mathematical L2/cosine conversion, while the README documents the concrete SQLite WAL schema and FAISS indexing.",
+    "relevant_source_ids": [
+      "doc_interview",
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#5",
+      "doc_readme#21"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-076",
+    "question": "What programming languages and tools shared between Vivek's resume and the Universal RAG repository are evident?",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "Python, FastAPI, Git, GitHub, MySQL/SQLite, and LangChain.",
+    "relevant_source_ids": [
+      "doc_resume",
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#4",
+      "doc_readme#3"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-077",
+    "question": "How do citation guarantees in the interview guide align with the citation schema in the README?",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "Both enforce that citations link to physical chunk IDs, page numbers, and excerpts directly from SQLite and FAISS metadata.",
+    "relevant_source_ids": [
+      "doc_interview",
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#15",
+      "doc_readme#17"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-078",
+    "question": "What security considerations mentioned in the README address risks outlined in RAG deployment guides?",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "SSRF protection, payload size enforcement (25MB), and directory traversal sanitization.",
+    "relevant_source_ids": [
+      "doc_readme",
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#34",
+      "doc_interview#18"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-079",
+    "question": "How does session memory in Universal RAG differ from the candidate's project state management in MarketPulse?",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "Universal RAG uses in-memory session history for conversational RAG, whereas MarketPulse implemented atomic concurrency locking on inventory.",
+    "relevant_source_ids": [
+      "doc_readme",
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#23",
+      "doc_resume#3"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-080",
+    "question": "How does the offline mode described in README fulfill the fallback design principles in the interview guide?",
+    "category": "multi_source",
+    "is_answerable": true,
+    "ground_truth_answer": "By ensuring zero external network dependency, using deterministic 1536-dim embeddings and grounded extractive generation.",
+    "relevant_source_ids": [
+      "doc_readme",
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#25",
+      "doc_interview#4"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-081",
+    "question": "What is the threshold?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "In Universal RAG, the default SIMILARITY_THRESHOLD is 0.0 (or configurable 0.0-1.0) to filter vector candidates.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-082",
+    "question": "How many vectors?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "The vector count corresponds to the total indexed chunks in the FAISS index, accessible via GET /health.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#28"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-083",
+    "question": "Tell me about the memory.",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "Session memory maintains chat history per session_id in RAM, separate from the FAISS vector knowledge base.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#23"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-084",
+    "question": "What is the score?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "Vector search computes a similarity score between 0.0 and 1.0 using converted normalized L2 distance.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#5"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-085",
+    "question": "What stack is used?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "Universal RAG uses Python 3.10+, FastAPI, LangChain, LangGraph, FAISS, SQLite, and Vanilla HTML/JS.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#3"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-086",
+    "question": "Who built it?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "Universal RAG was developed by Vivek Kumar (MNIT Jaipur).",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-087",
+    "question": "How does chunking work?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "RecursiveCharacterTextSplitter partitions text hierarchically with 600 character chunks and 100 character overlap.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#10"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-088",
+    "question": "What is the model?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "The default configured LLM is gpt-4o-mini and the embedding model is text-embedding-3-small.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-089",
+    "question": "Where is data stored?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "Metadata is stored in data/metadata.db (SQLite) and vector indices are stored in data/vectorstore (FAISS).",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#20"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-090",
+    "question": "Can I upload PDF?",
+    "category": "ambiguous",
+    "is_answerable": true,
+    "ground_truth_answer": "Yes, PDFs are uploaded via POST /documents/upload, extracted page-by-page, and indexed incrementally.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#28"
+    ],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-091",
+    "question": "What is the stock price of Apple Inc today?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-092",
+    "question": "How many employees work at OpenAI headquarters in San Francisco?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-093",
+    "question": "What was Vivek Kumar's salary at his first software engineering internship?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-094",
+    "question": "Which quantum computing algorithm is implemented in Universal RAG?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-095",
+    "question": "What is the weather forecast for Jaipur tomorrow?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-096",
+    "question": "Who won the FIFA World Cup in 2022?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-097",
+    "question": "What is the recipe for chocolate chip cookies?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-098",
+    "question": "What is Vivek Kumar's favorite programming language according to his resume?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-099",
+    "question": "How many GPU clusters are used to host the Universal RAG server?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-100",
+    "question": "What is the current version of the Rust compiler installed on the server?",
+    "category": "unanswerable",
+    "is_answerable": false,
+    "ground_truth_answer": "I could not find relevant information in the uploaded sources to answer your question.",
+    "relevant_source_ids": [],
+    "relevant_chunk_ids": [],
+    "conversation_history": []
+  },
+  {
+    "id": "bench-101",
+    "question": "What is its default chunk size?",
+    "category": "conversational_followup",
+    "is_answerable": true,
+    "ground_truth_answer": "The default chunk size is 600 characters with 100 character overlap.",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": [
+      {
+        "role": "user",
+        "content": "How does Universal RAG split long documents?"
+      },
+      {
+        "role": "assistant",
+        "content": "It uses RecursiveCharacterTextSplitter."
+      }
+    ]
+  },
+  {
+    "id": "bench-102",
+    "question": "Where is he studying?",
+    "category": "conversational_followup",
+    "is_answerable": true,
+    "ground_truth_answer": "Vivek Kumar is studying at Malaviya National Institute of Technology (MNIT), Jaipur.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#0"
+    ],
+    "conversation_history": [
+      {
+        "role": "user",
+        "content": "Who is Vivek Kumar?"
+      },
+      {
+        "role": "assistant",
+        "content": "Vivek Kumar is a B.Tech student in Artificial Intelligence."
+      }
+    ]
+  },
+  {
+    "id": "bench-103",
+    "question": "How does it prevent cycle loops during retrieval?",
+    "category": "conversational_followup",
+    "is_answerable": true,
+    "ground_truth_answer": "LangGraph enforces a MAX_RETRIES parameter (default 1) so if query rewrite fails twice, it exits to fallback.",
+    "relevant_source_ids": [
+      "doc_interview"
+    ],
+    "relevant_chunk_ids": [
+      "doc_interview#14"
+    ],
+    "conversation_history": [
+      {
+        "role": "user",
+        "content": "What happens when search retrieval finds low relevance chunks?"
+      },
+      {
+        "role": "assistant",
+        "content": "It triggers a rewrite_retry node."
+      }
+    ]
+  },
+  {
+    "id": "bench-104",
+    "question": "What technologies does it use for concurrency?",
+    "category": "conversational_followup",
+    "is_answerable": true,
+    "ground_truth_answer": "MarketPulse uses atomic inventory concurrency locking on the MERN stack with LangGraph and Groq.",
+    "relevant_source_ids": [
+      "doc_resume"
+    ],
+    "relevant_chunk_ids": [
+      "doc_resume#3"
+    ],
+    "conversation_history": [
+      {
+        "role": "user",
+        "content": "Tell me about the MarketPulse marketplace project."
+      },
+      {
+        "role": "assistant",
+        "content": "MarketPulse is a multi-vendor e-commerce marketplace."
+      }
+    ]
+  },
+  {
+    "id": "bench-105",
+    "question": "What port does it run on by default?",
+    "category": "conversational_followup",
+    "is_answerable": true,
+    "ground_truth_answer": "It runs on port 8000 (host 0.0.0.0).",
+    "relevant_source_ids": [
+      "doc_readme"
+    ],
+    "relevant_chunk_ids": [
+      "doc_readme#27"
+    ],
+    "conversation_history": [
+      {
+        "role": "user",
+        "content": "How do you run the FastAPI server locally?"
+      },
+      {
+        "role": "assistant",
+        "content": "You run uvicorn app:app --reload."
+      }
+    ]
+  }
+]

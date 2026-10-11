@@ -1,0 +1,62 @@
+[
+  {
+    "id": "eval-01",
+    "source_name": "rag_architecture_guide.txt",
+    "source_type": "text",
+    "document_content": "Retrieval-Augmented Generation (RAG) is an architectural pattern that enhances large language model outputs by retrieving authoritative facts from an external knowledge base before generating a response. RAG reduces hallucinations and enables models to answer domain-specific questions without requiring expensive fine-tuning. The ingestion pipeline consists of document parsing, chunking, embedding generation, and persistent vector storage.",
+    "question": "What is Retrieval-Augmented Generation and why is it used?",
+    "ground_truth_answer": "RAG is an architectural pattern that retrieves relevant facts from an external knowledge base before generating responses with an LLM, reducing hallucinations without expensive fine-tuning.",
+    "relevant_targets": [
+      "Retrieval-Augmented Generation (RAG) is an architectural pattern",
+      "reduces hallucinations and enables models to answer domain-specific questions without requiring expensive fine-tuning"
+    ]
+  },
+  {
+    "id": "eval-02",
+    "source_name": "vector_embeddings_overview.txt",
+    "source_type": "text",
+    "document_content": "Vector embeddings represent text as dense numerical vectors in a continuous geometric space. Similar semantic concepts are positioned closely together as measured by cosine similarity or Euclidean distance. FAISS (Facebook AI Similarity Search) is a library optimized for efficient similarity search and clustering of dense vectors, supporting exact and approximate nearest neighbor search.",
+    "question": "How does FAISS perform vector similarity search?",
+    "ground_truth_answer": "FAISS performs efficient similarity search and clustering over dense vector representations in continuous geometric space using distance metrics like cosine similarity and Euclidean distance.",
+    "relevant_targets": [
+      "FAISS (Facebook AI Similarity Search) is a library optimized for efficient similarity search",
+      "Similar semantic concepts are positioned closely together as measured by cosine similarity"
+    ]
+  },
+  {
+    "id": "eval-03",
+    "source_name": "chunking_strategies.txt",
+    "source_type": "text",
+    "document_content": "Chunking is the process of breaking long documents into smaller cohesive segments. Recursive character text splitting divides text hierarchically using paragraphs, sentences, and words. A typical chunk size is 500 to 800 characters with an overlap of 100 characters. Chunk overlap ensures that semantic context spanning across chunk boundaries is preserved, preventing fragmented sentences from losing meaning during retrieval.",
+    "question": "Why is chunk overlap important in RAG chunking?",
+    "ground_truth_answer": "Chunk overlap preserves semantic context across chunk boundaries so that ideas and sentences spanning across boundaries do not lose context or meaning during retrieval.",
+    "relevant_targets": [
+      "Chunk overlap ensures that semantic context spanning across chunk boundaries is preserved",
+      "preventing fragmented sentences from losing meaning during retrieval"
+    ]
+  },
+  {
+    "id": "eval-04",
+    "source_name": "langgraph_orchestration.txt",
+    "source_type": "text",
+    "document_content": "LangGraph is an orchestration framework for building stateful, multi-actor applications with LLMs. Unlike simple linear chains, LangGraph models application logic as a state graph with nodes representing functions and edges representing transitions. It supports cyclic execution, conditional routing, and state checkpoints. In Universal RAG, LangGraph validates retrieval relevance and dynamically rewrites queries if retrieved context is insufficient.",
+    "question": "What role does LangGraph play in Universal RAG?",
+    "ground_truth_answer": "LangGraph orchestrates the stateful retrieval workflow, managing conditional routing, validating context relevance, and executing query rewriting when initial retrieval is insufficient.",
+    "relevant_targets": [
+      "LangGraph models application logic as a state graph with nodes representing functions and edges representing transitions",
+      "LangGraph validates retrieval relevance and dynamically rewrites queries if retrieved context is insufficient"
+    ]
+  },
+  {
+    "id": "eval-05",
+    "source_name": "source_citations_provenance.txt",
+    "source_type": "text",
+    "document_content": "Source citations provide verifiable provenance for every generated answer in a RAG system. By attaching metadata such as document_id, page number, row indices, and source URI directly to each chunk during ingestion, the retrieval system can return deterministic source references alongside the response. Grounded citations ensure that the system does not hallucinate sources and allows users to audit claims.",
+    "question": "How does the system ensure source citations are grounded and not hallucinated?",
+    "ground_truth_answer": "Source citations are generated directly from actual metadata attached to retrieved chunks (document name, page number, URI), rather than asking the LLM to invent references.",
+    "relevant_targets": [
+      "attaching metadata such as document_id, page number, row indices, and source URI directly to each chunk",
+      "Grounded citations ensure that the system does not hallucinate sources and allows users to audit claims"
+    ]
+  }
+]

@@ -1,1 +1,30 @@
+# Environments
 .env
+.venv/
+venv/
+env/
+
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local Storage & Dynamic Artifacts
+uploads/*
+!uploads/.gitkeep
+data/*
+!data/.gitkeep
+evaluation_report.json
+evaluation_report.md
+evaluation/reports/
+
+# IDE / System
+.vscode/
+.idea/
+.DS_Store

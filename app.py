@@ -1,133 +1,300 @@
-from fastapi import FastAPI, HTTPException, UploadFile, File
+"""Universal RAG FastAPI Application.
+
+Provides clean REST endpoints for document ingestion, persistence management,
+health monitoring, and grounded question answering with verifiable citations.
+"""
+
+import logging
+import os
+import shutil
+import tempfile
+from typing import Any, Dict, List, Optional
+
+from fastapi import FastAPI, File, HTTPException, Query, UploadFile, status
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import HTMLResponse
-from pydantic import BaseModel
+from fastapi.responses import HTMLResponse, JSONResponse
+from pydantic import BaseModel, Field
 
-import os, uuid, shutil
+from backend.config import settings
+from backend.document_parser import DocumentParseError
+from backend.security import ValidationError
+from backend.service import service
 
-from rag_engine import parse_input, build_rag, ask_rag
+# Configure structured logging
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+)
+logger = logging.getLogger("universal_rag")
 
-app = FastAPI(title="Universal RAG API")
+app = FastAPI(
+    title=settings.APP_NAME,
+    version=settings.APP_VERSION,
+    description="A multi-source, grounded, scalable RAG system with persistent vector indexing and source citations.",
+)
 
+# CORS configuration
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=settings.CORS_ORIGINS,
+    allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-UPLOAD_DIR = "uploads"
-os.makedirs(UPLOAD_DIR, exist_ok=True)
 
-# -------------------------
-# GLOBAL STATE
-# -------------------------
-DOCUMENT_STORE = []   # List[Document]
-SOURCE_MAP = {}       # id -> display name
-RAG = {"retriever": None, "llm": None}
+# -------------------------------------------------------------
+# PYDANTIC SCHEMAS
+# -------------------------------------------------------------
+class IngestTextRequest(BaseModel):
+    source: str = Field(..., description="Web URL, YouTube URL, or raw text content to ingest")
 
-# -------------------------
-# MODELS
-# -------------------------
-class ChatRequest(BaseModel):
+
+class QueryRequest(BaseModel):
+    question: str = Field(..., description="User query to answer using ingested documents")
+    session_id: Optional[str] = Field(None, description="Unique conversation session identifier")
+
+
+class RemoveSourceRequest(BaseModel):
+    source_id: str = Field(..., description="Document ID to remove from database and vector index")
+
+
+class ResumeEvaluationRequest(BaseModel):
+    document_id: Optional[str] = Field(None, description="Document ID of uploaded resume")
+    job_description: Optional[str] = Field(None, description="Optional job description for skill and keyword tailoring")
+    raw_text: Optional[str] = Field(None, description="Optional raw resume text if no document was uploaded")
+
+
+class CitationItem(BaseModel):
+    label: str
+    source_name: str
+    source_type: str
+    source_uri: str
+    page: Optional[int] = None
+    chunk_id: str
+    score: float
+    excerpt: str
+
+
+class QueryResponse(BaseModel):
     question: str
+    answer: str
+    sources: List[CitationItem]
+    session_id: str = "default"
+    intent: str = "knowledge"
+    standalone_query: Optional[str] = None
+    latency_ms: float = 0.0
 
-class RemoveRequest(BaseModel):
-    source_id: str
 
-# -------------------------
-# UI
-# -------------------------
+# -------------------------------------------------------------
+# EXCEPTION HANDLERS
+# -------------------------------------------------------------
+@app.exception_handler(ValidationError)
+async def validation_exception_handler(request, exc: ValidationError):
+    return JSONResponse(
+        status_code=status.HTTP_400_BAD_REQUEST,
+        content={"detail": str(exc), "error_type": "ValidationError"},
+    )
+
+
+@app.exception_handler(DocumentParseError)
+async def parse_exception_handler(request, exc: DocumentParseError):
+    return JSONResponse(
+        status_code=status.HTTP_422_UNPROCESSABLE_ENTITY,
+        content={"detail": str(exc), "error_type": "DocumentParseError"},
+    )
+
+
+# -------------------------------------------------------------
+# WEB UI
+# -------------------------------------------------------------
 @app.get("/", response_class=HTMLResponse)
-def ui():
-    with open("frontend/index.html", "r", encoding="utf-8") as f:
+def index_ui():
+    """Serve the web application user interface."""
+    ui_path = os.path.join(settings.BASE_DIR, "frontend", "index.html")
+    if not os.path.exists(ui_path):
+        raise HTTPException(status_code=404, detail="UI template not found")
+    with open(ui_path, "r", encoding="utf-8") as f:
         return f.read()
 
-# -------------------------
-# REBUILD RAG
-# -------------------------
-def rebuild_rag():
-    if not DOCUMENT_STORE:
-        RAG["retriever"] = None
-        RAG["llm"] = None
-        return
 
-    retriever, llm = build_rag(DOCUMENT_STORE)
-    RAG["retriever"] = retriever
-    RAG["llm"] = llm
+# -------------------------------------------------------------
+# RESTFUL CORE API ENDPOINTS
+# -------------------------------------------------------------
+@app.get("/health", summary="Health & System Status")
+def health_check():
+    """Return system health status, storage metrics, and active models."""
+    return service.get_health()
 
-# -------------------------
-# INGEST TEXT / URL
-# -------------------------
-@app.post("/ingest-text")
-def ingest_text(source: str):
+
+@app.get("/documents", summary="List All Documents")
+def list_documents():
+    """Retrieve all persisted documents with chunk counts and ingestion status."""
+    return service.list_documents()
+
+
+@app.get("/documents/{document_id}", summary="Get Document Details")
+def get_document(document_id: str):
+    """Retrieve specific document metadata along with all its indexed chunks."""
+    doc = service.get_document(document_id)
+    if not doc:
+        raise HTTPException(status_code=404, detail=f"Document '{document_id}' not found")
+    return doc
+
+
+@app.post("/documents", summary="Ingest URL or Text", status_code=status.HTTP_201_CREATED)
+def ingest_document(req: IngestTextRequest):
+    """Ingest a web URL, YouTube URL, or raw text string into persistent store and vector index."""
     try:
-        docs = parse_input(source)
-        sid = str(uuid.uuid4())
-
-        DOCUMENT_STORE.extend(docs)
-        SOURCE_MAP[sid] = source
-
-        rebuild_rag()
-
-        return {"id": sid, "name": source}
-
+        doc = service.ingest_text_or_url(req.source)
+        return doc
+    except (ValidationError, DocumentParseError):
+        raise
     except Exception as e:
-        raise HTTPException(400, str(e))
+        logger.exception("Failed to ingest text/URL source: %s", e)
+        raise HTTPException(status_code=500, detail="Internal server error during ingestion")
 
-# -------------------------
-# INGEST FILE
-# -------------------------
-@app.post("/ingest-file")
-def ingest_file(file: UploadFile = File(...)):
+
+@app.post("/documents/upload", summary="Upload & Ingest File", status_code=status.HTTP_201_CREATED)
+async def upload_document(file: UploadFile = File(...)):
+    """Upload and incrementally index a PDF, CSV, or text document."""
+    temp_fd, temp_path = tempfile.mkstemp()
     try:
-        ext = os.path.splitext(file.filename)[1]
-        sid = str(uuid.uuid4())
-        fname = f"{sid}{ext}"
-        path = os.path.join(UPLOAD_DIR, fname)
-
-        with open(path, "wb") as f:
+        with os.fdopen(temp_fd, "wb") as f:
             shutil.copyfileobj(file.file, f)
 
-        docs = parse_input(path)
-        DOCUMENT_STORE.extend(docs)
-        SOURCE_MAP[sid] = file.filename
-
-        rebuild_rag()
-
-        return {"id": sid, "name": file.filename}
-
+        doc = service.ingest_file(temp_path, file.filename or "uploaded_file")
+        return doc
+    except (ValidationError, DocumentParseError):
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        raise
     except Exception as e:
-        raise HTTPException(400, str(e))
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        logger.exception("Failed to upload and ingest file: %s", e)
+        raise HTTPException(status_code=500, detail="Internal server error during file processing")
 
-# -------------------------
-# REMOVE SOURCE
-# -------------------------
+
+@app.delete("/documents/{document_id}", summary="Delete Document")
+def delete_document(document_id: str):
+    """Incrementally remove a document and its vectors from storage."""
+    success = service.delete_document(document_id)
+    if not success:
+        raise HTTPException(status_code=404, detail=f"Document '{document_id}' not found")
+    return {"status": "deleted", "document_id": document_id}
+
+
+@app.post("/query", response_model=QueryResponse, summary="Query RAG System")
+def query_rag(req: QueryRequest):
+    """
+    Execute grounded query answering over indexed documents using LangGraph workflow.
+    Supports session-based conversational context while keeping chat history isolated from RAG vector knowledge.
+    """
+    try:
+        return service.query(req.question, session_id=req.session_id)
+    except ValidationError:
+        raise
+    except Exception as e:
+        logger.exception("Query execution failed: %s", e)
+        raise HTTPException(status_code=500, detail="Internal server error during query processing")
+
+
+@app.get("/sessions", summary="List All Sessions")
+def list_sessions():
+    """Retrieve all active conversation sessions and their metadata."""
+    return service.list_sessions()
+
+
+@app.post("/sessions/{session_id}/clear", summary="Clear Session Conversation History")
+def clear_session_history(session_id: str):
+    """Clear conversational memory for a given session without modifying RAG vector documents."""
+    cleared = service.clear_session(session_id)
+    return {"status": "cleared" if cleared else "not_found", "session_id": session_id}
+
+
+@app.delete("/sessions/{session_id}", summary="Delete Session")
+def delete_session(session_id: str):
+    """Delete a conversation session completely."""
+    deleted = service.delete_session(session_id)
+    return {"status": "deleted" if deleted else "not_found", "session_id": session_id}
+
+
+@app.delete("/sessions", summary="Clear All Sessions")
+def clear_all_sessions():
+    """Clear all conversation sessions."""
+    service.clear_all_sessions()
+    return {"status": "all_cleared"}
+
+
+@app.get("/sessions/{session_id}/history", summary="Get Session Conversation History")
+def get_session_history(session_id: str):
+    """Retrieve message history for a given session."""
+    history = service.get_session_history(session_id)
+    return {"session_id": session_id, "messages": history}
+
+
+@app.post("/resume/evaluate", summary="Evaluate Resume", status_code=status.HTTP_200_OK)
+def evaluate_resume_endpoint(req: Optional[ResumeEvaluationRequest] = None):
+    """
+    Dedicated resume evaluation operation.
+    Evaluates an uploaded resume or raw text against an explainable 100-point rubric
+    with optional job-description tailoring, weak bullet rewrites, and deterministic scoring.
+    """
+    payload = req or ResumeEvaluationRequest()
+    return service.evaluate_resume(
+        document_id=payload.document_id,
+        job_description=payload.job_description,
+        raw_text=payload.raw_text,
+    )
+
+
+@app.get("/resume/evaluate", summary="Evaluate Latest Resume (GET)", status_code=status.HTTP_200_OK)
+def evaluate_resume_get():
+    """Evaluate the most recently uploaded resume without parameters."""
+    return service.evaluate_resume()
+
+
+# -------------------------------------------------------------
+# BACKWARD COMPATIBILITY ENDPOINTS (Preserves existing frontend/API contracts)
+# -------------------------------------------------------------
+@app.post("/ingest-text")
+def legacy_ingest_text(source: str = Query(..., description="URL or text string")):
+    """Legacy backward compatibility route for text ingestion."""
+    doc = service.ingest_text_or_url(source)
+    return {"id": doc["id"], "name": doc["source_name"]}
+
+
+@app.post("/ingest-file")
+async def legacy_ingest_file(file: UploadFile = File(...)):
+    """Legacy backward compatibility route for file upload."""
+    temp_fd, temp_path = tempfile.mkstemp()
+    try:
+        with os.fdopen(temp_fd, "wb") as f:
+            shutil.copyfileobj(file.file, f)
+
+        doc = service.ingest_file(temp_path, file.filename or "uploaded_file")
+        return {"id": doc["id"], "name": doc["source_name"]}
+    except Exception:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+        raise
+
+
 @app.post("/remove-source")
-def remove_source(req: RemoveRequest):
-    sid = req.source_id
-
-    if sid not in SOURCE_MAP:
-        raise HTTPException(404, "Source not found")
-
-    # rebuild doc store (simple & safe)
-    SOURCE_MAP.pop(sid)
-    DOCUMENT_STORE.clear()
-
-    for remaining in SOURCE_MAP.values():
-        DOCUMENT_STORE.extend(parse_input(remaining))
-
-    rebuild_rag()
-
+def legacy_remove_source(req: RemoveSourceRequest):
+    """Legacy backward compatibility route for removing sources."""
+    success = service.delete_document(req.source_id)
+    if not success:
+        raise HTTPException(status_code=404, detail="Source not found")
     return {"status": "removed"}
 
-# -------------------------
-# CHAT
-# -------------------------
-@app.post("/chat")
-def chat(req: ChatRequest):
-    if not RAG["retriever"]:
-        raise HTTPException(400, "No sources added yet")
 
-    answer = ask_rag(req.question, RAG["retriever"], RAG["llm"])
-    return {"answer": answer}
+@app.post("/chat")
+def legacy_chat(req: QueryRequest):
+    """Legacy backward compatibility route for chat."""
+    result = service.query(req.question, session_id=req.session_id)
+    return {
+        "answer": result["answer"],
+        "sources": result["sources"],
+    }
